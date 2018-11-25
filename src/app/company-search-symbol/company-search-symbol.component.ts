@@ -6,11 +6,11 @@ import {
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
 @Component({
-  selector: 'app-company-search',
-  templateUrl: './company-search.component.html',
-  styleUrls: ['./company-search.component.css']
+  selector: 'app-company-search-symbol',
+  templateUrl: './company-search-symbol.component.html',
+  styleUrls: ['./company-search-symbol.component.css']
 })
-export class CompanySearchComponent implements OnInit {
+export class CompanySearchSymbolComponent implements OnInit {
   companies$: Observable<Company[]>;
   private searchTerms = new Subject<string>();
   constructor(private companyService: CompanyService) { }
@@ -22,7 +22,7 @@ export class CompanySearchComponent implements OnInit {
     this.companies$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((term: string) => this.companyService.searchCompanies(term)),
+      switchMap((term: string) => this.companyService.searchCompaniesBySymbol(term)),
     );
   }
 

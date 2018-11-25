@@ -16,6 +16,10 @@ export class CompanyService {
     private http: HttpClient,
     private messageService: MessageService) { }
   private companiesUrl = 'http://localhost:3000/company';
+  private companyBaseUrl = 'http://localhost:3000/company';
+  private companySearchBaseUrl = 'http://localhost:3000/company/search';
+
+
   /** get companies*/
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(this.companiesUrl)
@@ -25,7 +29,7 @@ export class CompanyService {
       );
   }
   getCompany(id: number): Observable<Company> {
-    const url = `${this.companiesUrl}/${id}`;
+    const url = `${this.companyBaseUrl}/${id}`;
     return this.http.get<Company>(url).pipe(
       tap(_ => this.log(`fetched company id=${id}`)),
       catchError(this.handleError<Company>(`getCompany id=${id}`))
@@ -87,6 +91,16 @@ export class CompanyService {
     return this.http.get<Company[]>(`${this.companiesUrl}/${term}`).pipe(
       tap(_ => this.log(`found companies matching "${term}"`)),
       catchError(this.handleError<Company[]>('searchCompanies', []))
+    );
+  }
+  searchCompaniesBySymbol(term: string): Observable<Company[]> {
+    console.log(term);
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Company[]>(`${this.companySearchBaseUrl}/${term}`).pipe(
+      tap(_ => this.log(`found companies matching "${term}"`)),
+      catchError(this.handleError<Company[]>('searchCompaniesBySymbol', []))
     );
   }
 }

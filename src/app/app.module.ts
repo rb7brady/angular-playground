@@ -9,6 +9,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CompanySearchComponent } from './company-search/company-search.component';
+import { CompanySearchSymbolComponent } from './company-search-symbol/company-search-symbol.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { CompanySearchComponent } from './company-search/company-search.componen
     CompanyDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    CompanySearchComponent
+    CompanySearchComponent,
+    CompanySearchSymbolComponent
   ],
   imports: [
     BrowserModule,
